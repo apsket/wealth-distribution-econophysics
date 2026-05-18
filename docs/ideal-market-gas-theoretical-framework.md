@@ -162,7 +162,7 @@ While for the canonical combinatorial approach at ($M,N \to \infty$)
 ```math
 \begin{gather*}
 \lim_{M,N \to \infty} P_{can-comb} = \left( 1 + \frac{N}{M} \right)^{-m} \lim_{M,N \to \infty} \frac{1 - (1 + N/M)^{-1}}{1 - (1 + N/M)^{-(M+1)}} \\ 
-= \left( 1 + \frac{N}{M} \right)^{-m} \lim_{M,N \to \infty} \left( 1 - \left(1 + \frac{N}{M} \right)^{-1} \right) = \left( 1 + \frac{N}{M} \right)^{-m} \frac{N}{M+N}
+= \left( 1 + \frac{N}{M} \right)^{-m} \left( 1 - \left(1 + \frac{N}{M} \right)^{-1} \right) = \left( 1 + \frac{N}{M} \right)^{-m} \frac{N}{M+N}
 \end{gather*}
 ```
 
