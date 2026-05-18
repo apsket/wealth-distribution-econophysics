@@ -50,6 +50,17 @@ In statistical mechanics, this is modeled via the Grand Canonical Ensemble.
 Instead of a fixed $M$, we introduce the Chemical Potential, μ. In economics, μ represents the "cost of entry" or the marginal ease of acquiring new money (analogous to interest rates or inflation targets).
 
 
+## Simulation-First Philosophy: Ensemble Models as Symmetry Baselines
+
+A core tenet of this repository is that **the simulation execution defines the ground truth**, while analytical statistical mechanics models are static, integrated approximations. 
+
+The analytical frameworks do not possess or dictate real-time economic or physical dynamics. Instead, they calculate the maximum entropy configuration under absolute conservation laws, assuming a perfectly unconstrained, unbiased phase space traversal.
+
+We treat these analytical equations not as prescriptive targets to bend our code toward, but as **Symmetry Baselines**:
+
+* **Convergence** proves that the underlying microscopic algorithms preserve fundamental geometric symmetries and unbiased ergodicity.
+* **Divergence** does not represent a broken simulation, but rather a structurally modified universe where an algorithmic interaction rule actively deforms phase space geometry.
+
 ## Visualizations
 (GIFs here)
 
