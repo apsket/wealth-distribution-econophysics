@@ -46,6 +46,12 @@ By relaxing the uniform saving rule and distributing heterogeneous saving propen
 ### Phase 5: Grand Canonical Fields (Elastic Money Supply) [Planned]
 Modern macroeconomies do not operate under a strict "Gold Standard" or fixed-asset conservation law. This phase transitions the architecture from a Canonical framework to a Grand Canonical Ensemble. By introducing the **Chemical Potential of Money ($\mu$)**, we simulate an elastic money supply driven by credit expansion, inflation targets, and central bank interest rates.
 
+### Stage 5: Behavioral Tomography & Inference (Machine Learning Phase) [New, In Progress]
+
+Instead of just running simulations forward, we use Data Science and Machine Learning to invert the pipeline: treating observational wealth data as an input to infer the underlying microscopic behavioral mechanics ($\lambda$, $\beta$, or market friction) without direct access to agent ledgers.
+
+Insight: This mirrors real-world economics, where central banks only see macroscopic snapshots (Gini coefficients, tax brackets) and must infer consumer behaviors to set monetary policy.
+
 ---
 
 ## Empirical Validation Pipeline
