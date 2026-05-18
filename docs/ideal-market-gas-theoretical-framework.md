@@ -166,7 +166,7 @@ While for the canonical combinatorial approach at ($M,N \to \infty$)
 \end{gather*}
 ```
 
-We find the same behavior for the microcanonical and canonical combinatorial distributions in the limit of large systems.
+Notice the unreduced expression defines a geometric distribution $P(x;p) = (1-p)^{x} p$ with parameter $p = 1-(1+N/M)^{-1}$. We find the same geometric behavior for the microcanonical and canonical combinatorial distributions in the limit of large systems.
 
 Now for the naive canonical approach in the limit of large systems
 
