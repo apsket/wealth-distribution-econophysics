@@ -10,13 +10,13 @@ def discrete_boltzmann_pmf_infty(m, beta):
     return (1 - np.exp(-beta)) * np.exp(-beta * m)
 
 
-def discrete_boltzmann_pmf(m, beta, m_max):
-    return np.exp(-beta * m) * (1 - np.exp(-beta)) / (1 - np.exp(-beta * (m_max + 1)))
+def discrete_boltzmann_pmf(m, beta, m_total):
+    return np.exp(-beta * m) * (1 - np.exp(-beta)) / (1 - np.exp(-beta * (m_total + 1)))
 
 
-def boltzmann_combinatorial(m, m_avg, m_max):
+def boltzmann_combinatorial(m, m_avg, m_total):
     geo_ratio = 1 + 1/m_avg
-    return (geo_ratio ** (-m)) * (1-geo_ratio**(-1)) / (1 - geo_ratio**(-m_max-1))
+    return (geo_ratio ** (-m)) * (1-geo_ratio**(-1)) / (1 - geo_ratio**(-m_total-1))
 
 
 def microcanonical_pmf_vectorized(m_array, M, N):
