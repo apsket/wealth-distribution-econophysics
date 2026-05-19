@@ -147,7 +147,7 @@ For the canonical combinatorial approach under identical scaling, the partition 
 $$
 \begin{gather*}
 \lim_{M,N \to \infty} P_{can-comb} = \left( 1 + \frac{N}{M} \right)^{-m} \lim_{M,N \to \infty} \frac{1 - (1 + N/M)^{-1}}{1 - (1 + N/M)^{-(M+1)}} \\ 
-= \left( 1 + \frac{N}{M} \right)^{-m} \lim_{M,N \to \infty} \left( 1 - \left(1 + \frac{N}{M} \right)^{-1} \right) = \left( 1 + \frac{N}{M} \right)^{-m} \frac{N}{M+N}
+= \left( 1 + \frac{N}{M} \right)^{-m} \left( 1 - \left(1 + \frac{N}{M} \right)^{-1} \right) = \left( 1 + \frac{N}{M} \right)^{-m} \frac{N}{M+N}
 \end{gather*}
 $$
 
@@ -157,7 +157,7 @@ $$
 \lim_{M,N \to \infty} P_{micro} \equiv \lim_{M,N \to \infty} P_{can-comb}
 $$
 
-This proves that the structural constraints of a closed microcanonical economy smooth out precisely into the combinatorial canonical model when the economic system scales.
+This proves that the structural constraints of a closed microcanonical economy smooth out precisely into the combinatorial canonical model when the economic system scales. Notice the unreduced expression defines a geometric distribution $P(x;p) = (1-p)^{x} p$ with parameter $p = 1-(1+N/M)^{-1}$. We find the same geometric behavior for the microcanonical and canonical combinatorial distributions in the limit of large systems.
 
 
 ### The Hybrid/Naive Canonical Boundary
