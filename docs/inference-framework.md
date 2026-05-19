@@ -18,10 +18,10 @@ Instead of relying solely on static, isolated snapshots, our framework can extra
 
 ### The Microscopic Velocity Field
 
-We map the underlying economic drift by tracking the net flux of agents traversing specific wealth boundaries. For a wealth boundary $m^*$ the net macro-flux is defined as
+We map the underlying economic drift by tracking the net flux of agents traversing specific wealth boundaries. For a wealth boundary $m^\*$ the net macro-flux is defined as
 
 $$
-\Phi(m^*) = \sum_{m_i < m^*} \sum_{m_j \ge m^*} P(m_i \to m_j) - \sum_{m_i \ge m^*} \sum_{m_j < m^*} P(m_i \to m_j)
+\Phi(m^\*) = \sum_{m_i < m^\*} \sum_{m_j \ge m^\*} P(m_i \to m_j) - \sum_{m_i \ge m^\*} \sum_{m_j < m^\*} P(m_i \to m_j)
 $$
 
 By tracking this velocity vector, our inference pipeline can differentiate between a Zero-Intelligence Economy and an Inertial Economy ($\lambda \gt 0$), even if their instantaneous macroscopic profiles temporarily mirror one another due to finite-system noise.
