@@ -33,7 +33,7 @@ class MarketExperiment:
         self.snapshots = snapshots
         
         # Calculate timeline bounds directly from the injected economy matrix
-        self.num_transactions = (self.economy.num_agents * num_transactions) // 2
+        self.num_transactions = num_transactions
         self.simulator = Simulator(system=self.economy, strategy=self.strategy)
         
         # A registry container holding pluggable theoretical math functions
