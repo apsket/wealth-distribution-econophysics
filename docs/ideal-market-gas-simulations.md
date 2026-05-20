@@ -39,15 +39,15 @@ Rather than viewing these deviations as code anomalies, this framework treats th
 While both `np.random.randint` (Discrete Uniform Split) and `trade_unitary` (Unitary Shift) theoretically converge to the Bose-Einstein/Geometric combinatorial predictions, they exhibit varying degrees of historical variance:
 
 1. **Unconstrained Grand-Step Transitions (`randint`):**
-   By allowing the entire local pool ($M_{\text{pot}}$) to be reallocated in a single trade step, transaction variance scales as $\mathcal{O}(M_{\text{pot}}^2)$ (from the variance of uniform distributions). These high-amplitude macroscopic fluctuations introduce statistical noise into finite-time snapshots, showing minor, transient deviations from the theoretical curve.
+   By allowing the entire local pool ($M_{\text{pot}}$) to be reallocated in a single trade step, transaction variance scales as $`\mathcal{O}(M_{\text{pot}}^2)`$ (from the variance of uniform distributions). These high-amplitude macroscopic fluctuations introduce statistical noise into finite-time snapshots, showing minor, transient deviations from the theoretical curve.
 
 2. **Constrained Minimal Diffusion (`trade unitary`):**
-   Restricting interactions to $\pm 1 \varepsilon$ fixes the transaction variance to unity ($\mathcal{O}(1)$). The simulation functions as an ideal local random walk across the discrete phase space shell. By eliminating high-volatility wealth teleportation, the system smoothly adheres to the maximum entropy attractor, yielding an exceptionally tight, low-variance fit to the exact canonical combinatorial predictions.
+   Restricting interactions to $\pm 1 \varepsilon$ fixes the transaction variance to unity ($`\mathcal{O}(1)`$). The simulation functions as an ideal local random walk across the discrete phase space shell. By eliminating high-volatility wealth teleportation, the system smoothly adheres to the maximum entropy attractor, yielding an exceptionally tight, low-variance fit to the exact canonical combinatorial predictions.
 
 | Kinematic Protocol | Step Profile ($\Delta m$) | Trajectory Properties | Macro-Attractor |
 | :--- | :--- | :--- | :--- |
-| `trade unitary` | Strict $\pm 1 \varepsilon$ | Smooth, localized random walk. Minimal fluctuation variance ($\mathcal{O}(1)$). | Pure Geometric Baseline |
-| `randint` | Discrete uniform distribution over available integer space | High-volatility teleportation. Quadratic fluctuation variance ($\mathcal{O}(M_{\text{pot}}^2)$). | Pure Geometric Baseline |
+| `trade unitary` | Strict $\pm 1 \varepsilon$ | Smooth, localized random walk. Minimal fluctuation variance ($`\mathcal{O}(1)`$). | Pure Geometric Baseline |
+| `randint` | Discrete uniform distribution over available integer space | High-volatility teleportation. Quadratic fluctuation variance ($`\mathcal{O}(M_{\text{pot}}^2)`$). | Pure Geometric Baseline |
 
 Because both protocols respect the foundational symmetries, they share the exact same expectation attractor. The differences in their snapshot variances are not structural errors, but rather reflections of how each kinetic engine wanders across the invariant energy surface.
 
