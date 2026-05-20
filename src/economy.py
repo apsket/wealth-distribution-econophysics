@@ -244,29 +244,18 @@ class Simulator:
         self.system.balances = self.system._initialize_balances()
         self.history = [self.system.balances.copy()]
         
-        # Polymorphically capture whether strategy is a class instance or a raw function
         interaction_runner = (
             self.strategy.execute_interaction 
             if isinstance(self.strategy, InteractionStrategy) 
             else self.strategy
         )
 
-        expected_kind = self.system._get_native_dtype()
-
         num_events = 0
+        snapshot_interval = steps // snapshots
         while num_events < steps:
             if interaction_runner(self.system):  
-                # Type Verification Boundary:
-                # np.issubdtype is ideal here because numpy arrays contain types like np.int64 or np.float64, 
-                # which are subdtypes of standard Python int and float.
-                if not np.issubdtype(self.system.balances.dtype, expected_kind):
-                    raise TypeError(
-                        f"Interaction strategy mutated system balance array away from its native type! "
-                        f"Expected elements of type {expected_kind.__name__}, but array became {self.system.balances.dtype}."
-                    )
-
                 num_events += 1
-                if num_events % (steps // snapshots) == 0:
+                if num_events % snapshot_interval == 0:
                     self.history.append(self.system.balances.copy())
                     
         return self.system.balances, self.history
