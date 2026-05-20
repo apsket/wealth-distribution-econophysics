@@ -115,7 +115,10 @@ class BaseAgentEconomy(ABC):
     
     def _select_pair(self) -> np.ndarray:
         """Helper method to get indices of two unique agents chosen at random."""
-        return np.random.choice(self.num_agents, size=2, replace=False)
+        idx_i, idx_j = np.random.randint(0, self.num_agents, size=2)
+        while idx_i == idx_j:
+            idx_j = np.random.randint(0, self.num_agents)
+        return idx_i, idx_j
 
     def _initialize_balances(self) -> np.ndarray:
         """Orchestrates generation or explicit validation of initial balances."""
