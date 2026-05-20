@@ -53,7 +53,7 @@ class MarketExperiment:
         logger.info(f"Launching {self.economy.__class__.__name__}")
         logger.info(f"Processing timeline for {self.num_transactions:,} steps...")
         
-        final_wealths, balance_history = self.simulator.run(steps=self.num_transactions, snapshots=self.snapshots)
+        final_wealths, balance_history, history_time = self.simulator.run(steps=self.num_transactions, snapshots=self.snapshots)
 
         theory_curves = {}    
         for name, math_func in self._theoretical_models.items():
@@ -62,7 +62,7 @@ class MarketExperiment:
             except Exception as e:
                 logger.warning(f"Failed evaluating theoretical model '{name}': {e}", exc_info=True)
 
-        return final_wealths, balance_history, theory_curves
+        return final_wealths, balance_history, history_time, theory_curves
 
 
 class EconomyRunner:

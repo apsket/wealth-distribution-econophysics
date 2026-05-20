@@ -2,7 +2,7 @@ from __future__ import annotations
 import numpy as np
 import logging
 from abc import ABC, abstractmethod
-from typing import Callable, Union, Sequence
+from typing import Callable, Union, Sequence, Tuple
 
 logger = logging.getLogger("agent_system")
 
@@ -232,17 +232,21 @@ class DiscreteStateAgentEconomy(BaseAgentEconomy):
 # =====================================================================
 
 class Simulator:
-    """Orchestrates the simulation timeline and logs balance history over time."""
+    """Orchestrates simulation timeline, logging both macro-history 
+    and high-resolution final-step history.
+    """
     
     def __init__(self, system: BaseAgentEconomy, strategy: Union[InteractionStrategy, Callable[[BaseAgentEconomy], bool]]):
         self.system = system
         self.strategy = strategy
         self.history = []
+        self.history_time = [0]
 
-    def run(self, steps: int = int(1e5), snapshots: int = int(1e2)):
+    def run(self, steps: int = int(1e5), snapshots: int = int(1e2), final_resolution_steps: int = 80):
         # Reset system state and clear history
         self.system.balances = self.system._initialize_balances()
         self.history = [self.system.balances.copy()]
+        self.history_time = [0]
         
         interaction_runner = (
             self.strategy.execute_interaction 
@@ -252,10 +256,15 @@ class Simulator:
 
         num_events = 0
         snapshot_interval = steps // snapshots
+        # Calculate when to start high-res logging
+        final_stretch_threshold = steps - final_resolution_steps
         while num_events < steps:
             if interaction_runner(self.system):  
                 num_events += 1
-                if num_events % snapshot_interval == 0:
+                
+                # Macro logging (evenly spaced) and final high-resolution final logging
+                if (num_events % snapshot_interval == 0) or (num_events > final_stretch_threshold):
                     self.history.append(self.system.balances.copy())
+                    self.history_time.append(num_events)
                     
-        return self.system.balances, self.history
+        return self.system.balances, self.history, self.history_time
