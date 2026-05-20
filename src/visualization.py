@@ -1,12 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from typing import Dict, Optional, Tuple
+from typing import Dict, Optional, Tuple, Union
 
 
 def plot_wealth_distribution(
     final_wealths: np.ndarray,
     theory_dict: Optional[Dict[str, np.ndarray]] = None,
     num_agents: Optional[int] = None,
+    total_wealth: Optional[Union[int, float]] = None,
     transactions: Optional[int] = None,
     plot_title: Optional[str] = 'Thermalization of Wealth',
     figsize: Tuple[float, float] = (7.5, 5.0),
@@ -103,7 +104,7 @@ def plot_wealth_distribution(
     
     # Subtitle: Placed via an absolute coordinate safely nested below the bold title
     if num_agents is not None and transactions is not None:
-        subtitle_str = f"$N = {num_agents:,}$ agents  |  $T = {transactions:,}$ interactive events"
+        subtitle_str = f"$N = {num_agents:,}$ agents  |  $M = {total_wealth:.1f}$ wealth  | $T = {transactions:,}$ interactive events"
         ax.text(
             0.5, 1.02, subtitle_str, 
             transform=ax.transAxes, 
