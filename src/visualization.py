@@ -1,8 +1,5 @@
-import os
 import numpy as np
-import itertools
 import matplotlib.pyplot as plt
-from matplotlib.animation import FuncAnimation
 from typing import Dict, Optional, Tuple
 
 
@@ -29,7 +26,7 @@ def plot_wealth_distribution(
         save_path: If specified, exports the figure directly to disk (e.g., 'figure1.pdf').
     """
     # -------------------------------------------------------------------------
-    # 1. Academic Styling Foundations
+    #   Academic Styling Foundations
     # -------------------------------------------------------------------------
     plt.rcParams.update({
         'font.family': 'serif',
@@ -46,7 +43,7 @@ def plot_wealth_distribution(
     fig, ax = plt.subplots(figsize=figsize, dpi=300)
     
     # -------------------------------------------------------------------------
-    # 2. Empirical Histogram Calculation (Unit-Bin Enforcement)
+    #   Empirical Histogram Calculation (Unit-Bin Enforcement)
     # -------------------------------------------------------------------------
     min_w = int(np.floor(final_wealths.min()))
     max_w = int(np.ceil(final_wealths.max()))
@@ -67,7 +64,7 @@ def plot_wealth_distribution(
     )
 
     # -------------------------------------------------------------------------
-    # 3. Discrete Theoretical Point Overlays
+    #   Discrete Theoretical Point Overlays
     # -------------------------------------------------------------------------
     if theory_dict:
         # High-contrast, colorblind-friendly academic palette
@@ -80,7 +77,7 @@ def plot_wealth_distribution(
             marker = markers[i % len(markers)]
             wealth_coordinates = np.arange(len(curve))
             
-            # Scatter explicit points. We keep sizes modest and use edge colors 
+            # Scatter explicit points. Modest sizes and edge colors 
             # to keep markers crisp when they overlap on the grid.
             ax.scatter(
                 wealth_coordinates, 
@@ -94,18 +91,17 @@ def plot_wealth_distribution(
                 label=label
             )
 
-
     # -------------------------------------------------------------------------
-    # 4. Canvas Polish & Metrology Meta-labels
+    #   Canvas Polish & Metrology Meta-labels
     # -------------------------------------------------------------------------
     ax.set_xlabel("Agent Wealth ($w$)")
     ax.set_ylabel("Probability $P(w)$")
     ax.set_xlim(left=-0.5, right=max_w + 0.5)
     
-    # 1. Main Heading: Set explicitly in bold with a generous pad to clear the subtitle
+    # Main Heading: Set explicitly in bold with a generous pad to clear the subtitle
     ax.set_title(plot_title, weight="bold", pad=24)
     
-    # 2. Subtitle: Placed via an absolute coordinate safely nested below the bold title
+    # Subtitle: Placed via an absolute coordinate safely nested below the bold title
     if num_agents is not None and transactions is not None:
         subtitle_str = f"$N = {num_agents:,}$ agents  |  $T = {transactions:,}$ interactive events"
         ax.text(
@@ -115,13 +111,14 @@ def plot_wealth_distribution(
             fontsize=9.5, color="#4A5568"
         )
 
-
     # Clean border lines
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
     ax.spines['left'].set_linewidth(0.8)
     ax.spines['bottom'].set_linewidth(0.8)
-    ax.grid(True)
+    # Inside plot_wealth_distribution
+    ax.grid(True, linestyle=':', alpha=0.6, color='#CBD5E1')  # Clean slate grid look
+    ax.set_facecolor('#F8FAFC')  # Extremely subtle off-white background block for modern dashboards
     
     # Legend layout
     ax.legend(frameon=True, facecolor="white", edgecolor="none", framealpha=0.8)
