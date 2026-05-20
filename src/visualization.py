@@ -107,7 +107,7 @@ def plot_wealth_distribution(
     
     # Subtitle: Placed via an absolute coordinate safely nested below the bold title
     if num_agents is not None and transactions is not None:
-        subtitle_str = f"$N = {num_agents:,}$ agents  |  $M = {total_wealth:,}$ wealth  | $T = {transactions:,}$ interactive events"
+        subtitle_str = f"$N = {num_agents:,}$ agents  |  $M = {total_wealth:,}$ wealth  | $T = {transactions:,}$ interactions"
         ax.text(
             0.5, 1.02, subtitle_str, 
             transform=ax.transAxes, 
