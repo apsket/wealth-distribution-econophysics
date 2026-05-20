@@ -58,7 +58,6 @@ class MarketExperiment:
         theory_curves = {}    
         for name, math_func in self._theoretical_models.items():
             try:
-                # Passing the instance allows the hook to inspect total wealth/agents dynamically
                 theory_curves[name] = math_func(self)
             except Exception as e:
                 logger.warning(f"Failed evaluating theoretical model '{name}': {e}", exc_info=True)
