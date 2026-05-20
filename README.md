@@ -4,6 +4,8 @@ This project applies the principles of Statistical Physics to model how money mo
 
 Rather than viewing wealth distribution strictly through the lens of social policy, this project treats it as a structural property of maximum entropy and phase-space geometry in closed systems.
 
+![Simulation results and predictions](results/figures/discrete_large_liquid_equilibrium.png)
+
 ---
 
 ## Academic Foundation & Context
@@ -34,7 +36,7 @@ We evaluate closed, small-scale economic systems where wealth is highly quantize
 
 **Core Finding:** Continuous approximations are imprecise at this granularity. True discrete frameworks (microcanonical or canonical) are required to capture true market behavior. The naive continuous "heat-bath" assumption overestimates by $\approx 13\%$. Asset quantization fundamentally limits accessible systemic microstates.
 
-### Phase 2: Macro-Scale Thermalization & Continuous Transitions [Planned]
+### Phase 2: Macro-Scale Thermalization & Continuous Transitions [Current]
 As the economy scales ($M, N \to \infty$) and enters the fluid, high-liquidity limit ($M \gg N$), discrete combinatorics smoothly relax into continuous thermodynamic distributions. This justifies a mathematical phase transition. We move from integer-based combinatorics to continuous space. Here, we implement the idealized Drăgulescu-Yakovenko gas phase, demonstrating how perfect initial equality spontaneously "melts" into an exponential inequality profile driven purely by entropic maximization.
 
 ### Phase 3: The Inertial Economy & Middle-Class Formation [Planned]
