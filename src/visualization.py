@@ -10,6 +10,7 @@ def plot_wealth_distribution(
     total_wealth: Optional[Union[int, float]] = None,
     transactions: Optional[int] = None,
     plot_title: Optional[str] = 'Thermalization of Wealth',
+    density: bool = True,
     figsize: Tuple[float, float] = (7.5, 5.0),
     save_path: Optional[str] = None
 ) -> plt.Figure:
@@ -56,7 +57,7 @@ def plot_wealth_distribution(
     ax.hist(
         final_wealths,
         bins=bins,
-        density=True,
+        density=density,
         color="#718096",
         alpha=0.20,
         edgecolor="#4A5568",
@@ -71,18 +72,20 @@ def plot_wealth_distribution(
         # High-contrast, colorblind-friendly academic palette
         colors = ['#E53E3E', '#3182CE', '#DD6B20', '#319795', '#805AD5']
         # Differentiate overlapping theories using diverse geometric markers
-        markers = ['o', 's', '^', 'D', 'v']
+        markers = ['s', 'o', '^', 'v', 'D']
         
         for i, (label, curve) in enumerate(theory_dict.items()):
             color = colors[i % len(colors)]
             marker = markers[i % len(markers)]
             wealth_coordinates = np.arange(len(curve))
+
+            curve_plot = curve if density else num_agents * curve
             
             # Scatter explicit points. Modest sizes and edge colors 
             # to keep markers crisp when they overlap on the grid.
             ax.scatter(
                 wealth_coordinates, 
-                curve, 
+                curve_plot, 
                 color=color,
                 marker=marker,
                 s=20,
@@ -96,7 +99,7 @@ def plot_wealth_distribution(
     #   Canvas Polish & Metrology Meta-labels
     # -------------------------------------------------------------------------
     ax.set_xlabel("Agent Wealth ($w$)")
-    ax.set_ylabel("Probability $P(w)$")
+    ax.set_ylabel("Probability $P(w)$" if density else "Occupancy $n(w)$")
     ax.set_xlim(left=-0.5, right=max_w + 0.5)
     
     # Main Heading: Set explicitly in bold with a generous pad to clear the subtitle
@@ -104,7 +107,7 @@ def plot_wealth_distribution(
     
     # Subtitle: Placed via an absolute coordinate safely nested below the bold title
     if num_agents is not None and transactions is not None:
-        subtitle_str = f"$N = {num_agents:,}$ agents  |  $M = {total_wealth:.1f}$ wealth  | $T = {transactions:,}$ interactive events"
+        subtitle_str = f"$N = {num_agents:,}$ agents  |  $M = {total_wealth:,}$ wealth  | $T = {transactions:,}$ interactive events"
         ax.text(
             0.5, 1.02, subtitle_str, 
             transform=ax.transAxes, 
