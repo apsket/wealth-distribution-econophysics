@@ -31,10 +31,10 @@ This model translates abstract physical constants into explicit economic indicat
 
 ## Evolutionary Phases of the Project
 
-### Phase 1: Micro-Scale Mechanics & The Quantized Limit [Current]
+### Phase 1: Micro-Scale Mechanics & The Quantized Limit
 We evaluate closed, small-scale economic systems where wealth is highly quantized (e.g., local token-based economies, liquidity-starved cohorts, or micro-market simulations where $N \approx M$). 
 
-**Core Finding:** Continuous approximations are imprecise at this granularity. True discrete frameworks (microcanonical or canonical) are required to capture true market behavior. The naive continuous "heat-bath" assumption overestimates by $\approx 13\%$. Asset quantization fundamentally limits accessible systemic microstates.
+**Core Finding:** Continuous approximations are imprecise at this granularity. True discrete frameworks (microcanonical or canonical) are required to capture true market behavior. The naive continuous "heat-bath" assumption overestimates by $\approx 13\\%$. Asset quantization fundamentally limits accessible systemic microstates.
 
 ### Phase 2: Macro-Scale Thermalization & Continuous Transitions [Current]
 As the economy scales ($M, N \to \infty$) and enters the fluid, high-liquidity limit ($M \gg N$), discrete combinatorics smoothly relax into continuous thermodynamic distributions. This justifies a mathematical phase transition. We move from integer-based combinatorics to continuous space. Here, we implement the idealized Drăgulescu-Yakovenko gas phase, demonstrating how perfect initial equality spontaneously "melts" into an exponential inequality profile driven purely by entropic maximization.
@@ -79,5 +79,6 @@ To ensure the framework is a predictive economic tool rather than a purely mathe
 ---
 
 ## Technical Architecture
-*   `src/`: Core Python engines handling agent-based trading execution.
+*   `src/`: core Python engines handling agent-based trading execution.
 *   `docs/`: analytical write-ups, including physics-inspired modeling and simulated data and empirical validation, mathematical derivations, full proofs of multi-scale convergence, and ensemble breakdown boundaries.
+*   `notebooks/`: simulations, consistency with predictions and properties inference.
