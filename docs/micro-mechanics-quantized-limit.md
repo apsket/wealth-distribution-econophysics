@@ -191,7 +191,7 @@ To demonstrate this divergence, we isolate the baseline probability of an agent 
 
 While $P_{can-comb}$ and $P_{micro}$ converge rapidly to 0.5 even for minimal system sizes, the hybrid canonical framework gets trapped at a structurally flawed value of $\approx 0.6321$.
 
-The continuous heat-bath assumption overestimates the probability of complete destitution by over $13\%$. This difference occurs because assuming a continuous, unbounded external reservoir ignores the severe phase space restrictions imposed by actual asset quantization.
+The continuous heat-bath assumption overestimates the probability of complete destitution by over $25\\%$. This difference occurs because assuming a continuous, unbounded external reservoir ignores the severe phase space restrictions imposed by actual asset quantization.
 
 
 ## Summary & Literature Context

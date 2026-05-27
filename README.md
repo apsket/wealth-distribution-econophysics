@@ -31,10 +31,10 @@ This model translates abstract physical constants into explicit economic indicat
 
 ## Evolutionary Phases of the Project
 
-### Phase 1: Micro-Scale Mechanics & The Quantized Limit [Current]
+### Phase 1: Micro-Scale Mechanics & The Quantized Limit
 We evaluate closed, small-scale economic systems where wealth is highly quantized (e.g., local token-based economies, liquidity-starved cohorts, or micro-market simulations where $N \approx M$). 
 
-**Core Finding:** Continuous or even hybrid approximations are imprecise at this granularity. True discrete frameworks (microcanonical or canonical) are required to capture market behavior. The naive continuous "heat-bath" assumption overestimates by $\approx 26.4\%$. Asset quantization fundamentally limits accessible systemic microstates. This behavior is observed not only at small systems, but all discrete systems where the number of agents is comparable equal to the number of available wealth levels.
+**Core Finding:** Continuous or even hybrid approximations are imprecise at this granularity. True discrete frameworks (microcanonical or canonical) are required to capture market behavior. The naive continuous "heat-bath" assumption overestimates by $\approx 26.5\%$. Asset quantization fundamentally limits accessible systemic microstates. This behavior is observed not only at small systems, but all discrete systems where the number of agents is comparable equal to the number of available wealth levels.
 
 ![Simulation results and predictions](results/figures/large_small_non_liquid_equilibrium.png)
 
@@ -81,5 +81,6 @@ To ensure the framework is a predictive economic tool rather than a purely mathe
 ---
 
 ## Technical Architecture
-*   `src/`: Core Python engines handling agent-based trading execution.
+*   `src/`: core Python engines handling agent-based trading execution.
 *   `docs/`: analytical write-ups, including physics-inspired modeling and simulated data and empirical validation, mathematical derivations, full proofs of multi-scale convergence, and ensemble breakdown boundaries.
+*   `notebooks/`: simulations, consistency with predictions and properties inference.
