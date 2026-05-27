@@ -70,7 +70,7 @@ While the profile of $P(m)$ across the domain is governed by this geometric fram
 
 In the canonical ensemble, the system is open to wealth fluctuations via contact with a larger reservoir. Because the global wealth constraint is relaxed to an average requirement, the wealth states of individual agents are statistically independent.
 
-Consequently, the occupancy $n_m$ at a specific wealth level $m$ is perfectly modeled by a Binomial distribution $n_m \sim \textnormal{Binomial}(N, P(m))$. The expected occupany and intrinsic variance are
+Consequently, the occupancy $n_m$ at a specific wealth level $m$ is modeled by a Binomial distribution $n_m \sim \textnormal{Binomial}(N, P(m))$. The expected occupany and intrinsic variance are
 
 $$
 \begin{gather*}
@@ -78,6 +78,8 @@ $$
 \textnormal{Var}_{can}(n_m) = N\cdot P(m) \left(1 - P(m)\right)
 \end{gather*}
 $$
+
+The variance estimate will prove to be an unaccurate estimate of the variance of in occupations. To see why this is likely to be the case, notice that for small $P(m)$ then $\textnormal{Var}_{can}(n_m) \approx N\cdot P(m) \left(1-0\right) = N\cdot P(m)$, which suggests that the variance is in the order of the average occupation, an extreme prediction. The covariance between different wealth levels is essential for correctly modeling the variance in occupation. The expected value of occupancy $\mathbb{E}[n_m]$ remains a reasonable prediction because the expectation value is linear even for correlated variables, i.e., $\mathbb{E}[n_m] = \mathbb{E}[\sum_{i}n_{i,m}] = \sum_{i} \mathbb{E}[n_{i,m}] = N\cdot P(m)$ where $n_{i,m}$ is the occupancy of agent $i$ at wealth level $m$.
 
 #### The Microcanonical Ensemble (Conserved Allocations)
 

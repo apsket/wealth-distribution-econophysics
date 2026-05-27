@@ -5,6 +5,8 @@ from typing import Dict, Optional, Tuple, Union
 
 def plot_wealth_distribution(
     final_wealths: np.ndarray,
+    occupancies: Optional[np.ndarray] = None,
+    centers: Optional[np.ndarray] = None,
     theory_dict: Optional[Dict[str, np.ndarray]] = None,
     num_agents: Optional[int] = None,
     total_wealth: Optional[Union[int, float]] = None,
@@ -47,23 +49,35 @@ def plot_wealth_distribution(
     # -------------------------------------------------------------------------
     #   Empirical Histogram Calculation (Unit-Bin Enforcement)
     # -------------------------------------------------------------------------
-    min_w = int(np.floor(final_wealths.min()))
-    max_w = int(np.ceil(final_wealths.max()))
-    
-    # Unit bins centered around integer values
-    bins = np.arange(min_w, max_w + 2) - 0.5 
-    
-    # Plot empirical results using a muted, non-distracting background bar profile
-    ax.hist(
-        final_wealths,
-        bins=bins,
-        density=density,
-        color="#718096",
-        alpha=0.20,
-        edgecolor="#4A5568",
-        linewidth=0.5,
-        label="Simulation State (Empirical)"
-    )
+    if final_wealths is not None:
+        min_w = int(np.floor(final_wealths.min()))
+        max_w = int(np.ceil(final_wealths.max()))
+        # Unit bins centered around integer values
+        bins = np.arange(min_w, max_w + 2) - 0.5
+        ax.hist(
+            final_wealths,
+            bins=bins,
+            density=density,
+            color="#718096",
+            alpha=0.20,
+            edgecolor="#4A5568",
+            linewidth=0.5,
+            label="Simulation State (Empirical)"
+        )
+    else:
+        nonzero_indices = np.nonzero(occupancies)[0]
+        max_w = nonzero_indices[-1] if nonzero_indices.size > 0 else None
+        ax.bar(
+            centers,
+            occupancies,
+            width=len(occupancies)*[1],       # Width of each individual bin
+            align="center",                   # Align bars to start at the bin center
+            color="#718096",
+            alpha=0.20,
+            edgecolor="#4A5568",
+            linewidth=0.5,
+            label="Simulation State (Empirical)"
+        )
 
     # -------------------------------------------------------------------------
     #   Discrete Theoretical Point Overlays
