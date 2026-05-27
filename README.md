@@ -34,9 +34,9 @@ This model translates abstract physical constants into explicit economic indicat
 ### Phase 1: Micro-Scale Mechanics & The Quantized Limit [Current]
 We evaluate closed, small-scale economic systems where wealth is highly quantized (e.g., local token-based economies, liquidity-starved cohorts, or micro-market simulations where $N \approx M$). 
 
-**Core Finding:** Continuous or even hybrid approximations are imprecise at this granularity. True discrete frameworks (microcanonical or canonical) are required to capture true market behavior. The naive continuous "heat-bath" assumption overestimates by $\approx 13\%$. Asset quantization fundamentally limits accessible systemic microstates.
+**Core Finding:** Continuous or even hybrid approximations are imprecise at this granularity. True discrete frameworks (microcanonical or canonical) are required to capture market behavior. The naive continuous "heat-bath" assumption overestimates by $\approx 26.4\%$. Asset quantization fundamentally limits accessible systemic microstates. This behavior is observed not only at small systems, but all discrete systems where the number of agents is comparable equal to the number of available wealth levels.
 
-![Simulation results and predictions](results/figures/discrete_large_liquid_equilibrium.png)
+![Simulation results and predictions](results/figures/large_small_non_liquid_equilibrium.png)
 
 ### Phase 2: Macro-Scale Thermalization & Continuous Transitions [Current]
 As the economy scales ($M, N \to \infty$) and enters the fluid, high-liquidity limit ($M \gg N$), discrete combinatorics smoothly relax into continuous thermodynamic distributions. This justifies a mathematical phase transition. We move from integer-based combinatorics to continuous space. Here, we implement the idealized Drăgulescu-Yakovenko gas phase, demonstrating how perfect initial equality spontaneously "melts" into an exponential inequality profile driven purely by entropic maximization.
