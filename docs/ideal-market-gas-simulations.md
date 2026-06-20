@@ -58,7 +58,7 @@ To quantify the magnitude of fluctuations in occupancy numbers assumed by the va
 
 For any specific domain point, the allocation of $N$ agents can be conceptualized as a series of trials where an agent either possesses exactly $m$ wealth tokens (Success, with probability $P(m)$) or does not (Failure, with probability $1−P(m)$).
 
-The explicit form of P(m) is determined by the geometric approximation for discrete economies as, which serves as the convergence distribution for the system as liquidity scales (for both the canonical and microcanonical ensemble),
+The explicit form of $P(m)$ is determined by the geometric approximation for discrete economies as, which serves as the convergence distribution for the system as liquidity scales (for both the canonical and microcanonical ensemble),
 
 $$
 P(m) = (1-p)^x p \hspace{15pt} \textnormal{where} \hspace{8pt} p = 1-\left(1+\frac{N}{M}\right)^{-1}
@@ -229,45 +229,12 @@ Because the front coefficient $\frac{(N-1)}{(2N-1)} \to \frac{1}{2}$. This prove
 
 However, this approximation fails near the extreme macro-monopoly tail where $m \to N$. As $k$ approaches $N-1$, the transition fractions drop as $\frac{1}{N} \to 0$, which properly enforces the rapid phase-space collapse as an individual agent exhausts the finite resource pool.
 
-For the joint allocation $P(m,m)$, two distinct agents hoarding exactly $m$ quanta leaves the remaining population to partition $2N-2m$ tokens:
-
-$$
-P(m,m) = \frac{\binom{(N - 2m) + (N -2) - 1}{N - 2m}}{\binom{2N - 1}{N}} = \frac{(2N-2m-3)!}{(N-2m)!(N-3)!} \cdot \frac{N!(N-1)!}{(2N-1)!}
-$$
-
-Extracted as a product ratio relative to the single-agent allocations, polynomial reduction yields:
-
-$$
-P(m,m) = \frac{(N-1)(N-2)}{(2N-1)(2N-2)} \cdot \prod_{k=0}^{2m-1} \frac{N-k}{2N-3-k}
-$$
-
-Where similarly to the individual probability for wealth levels in the bulk of the distribution ($m \ll N$),
-
-$$
-P(m,m) \approx \left(\frac{1}{2}\right)^{2} \left(\frac{1}{2}\right)^{2m} = \left(\frac{1}{2}\right)^{2m+2} = \left(\left(\frac{1}{2}\right)^{m+1}\right)^{2}
-$$
-
-Which implies in this regime the probabilities of two agents having equal wealth are independent $P(m,m) = P(m)^{2}$.
-
-Substituting these reductions into the master microcanonical variance equation $\textnormal{Var}_{\textnormal{micro}}(n_m) = N P(m) + N(N-1)P(m,m) - [N P(m)]^2$ isolates the leading-order behaviors:
-
-$$
-\textnormal{Var}_{\textnormal{micro}}(n_m) \approx N \cdot P(m) + N^{2} P(m)^{2} - [N P(m)]^2 = \mathbb{E}[n_m]
-$$
-
-For the standard deviation of the ratio of occupancy to $N$,
-$$
-\sqrt{\textnormal{Var}_{\textnormal{micro}}\left(\frac{n_m}{N}\right)} = \frac{\sqrt{\textnormal{Var}_{\textnormal{micro}}(n_m)}}{N} \approx \sqrt{\frac{P(m)}{N}}
-$$
-
-Again converging to the probability in the general case of a tight economy.
-
-For the relative variability,
+For the relative variability under independence,
 $$
 \frac{\sqrt{\textnormal{Var}_{\textnormal{micro}}(n_m)}}{\mathbb{E}[n_m]} \approx \frac{1}{\sqrt{NP(m)}}
 $$
 
-Given that $P(m)$ is independent of $N,M$ as the economy grows, this again indicates a decreasing relative variability with respect to economy agents size (or increasing economy wealth as well in this regime $M\approx N$) and increasing with occupancy level.
+Given that $P(m)$ in the tight economy is independent of $N,M$ as the economy grows, relative variability at a fixed wealth level decreases with respect to economy agents size (or increasing economy wealth as well in this regime) and increases with occupancy level for fixed economy size.
 
 #### Case 4: General Wealth Fluctuations in a Flushed Economy ($M \gg N$)
 
@@ -295,53 +262,22 @@ $$
 P(m) \approx \frac{N}{M} \prod_{k=0}^{m-1} \frac{1}{1+\frac{N}{M}} \approx \frac{N}{M} \left( 1-\frac{N}{M} \right)^{m}
 $$
 
-Fixing wealth as relative portion of the total $m = rM$ while letting $M$ grow,
+Describing a wealth level as a relative portion of the total $m = rM$ while letting $M$ grow,
 $$
 P(m) \approx \frac{N}{M} \left( 1-\frac{N}{M} \right)^{rM} \approx \frac{N}{M} e^{-rN} = \frac{N}{M} e^{-m\frac{N}{M}}
 $$
 
-Because $M$ sits in the denominator, $P(m) \to 0$ for any specific, fixed wealth level $m$. The probability space becomes highly diluted across an expansive spectrum of choices.
-
-For the joint probability $P(m,m)$, the combinatorial scaling follows:
-
-$$
-P(m,m) = \frac{\binom{M - 2m + N - 3}{M - 2m}}{\binom{M + N - 1}{M}} \approx \frac{(N-1)(N-2)}{M^2} \left(1 - \frac{2m}{M}\right)^{N-3}
-$$
-
-Comparing the expansions of $P(m)$ and $P(m,m)$ under the condition $M \to \infty$ reveals that the higher-order coupling terms vanish:
-
-$$
-P(m,m) = P(m)^2 \cdot \left[1 + \mathcal{O}\left(\frac{1}{M}\right)\right]
-$$
-
-When the joint probability factorizes perfectly into independent allocations ($P(m,m) \to P(m)^2$), the cross-agent covariances in the master equation cancel out
-
-$$
-\textnormal{Var}_{\textnormal{micro}}(n_m) \to N \cdot P(m)\left(1 - P(m)\right)
-
-$$
-
-Since the immense phase space dilution forces $P(m) \to 0$, the binomial damping term $(1 - P(m))$ goes to unity, yielding:
-
-$$
-\textnormal{Var}_{\textnormal{micro}}(n_m) \approx \mathbb{E}[n_m] \approx \frac{N^2}{M}
-$$
-
-This establishes the ultimate convergence of ensembles. When the economy is flooded with capital, every distinct wealth level $m$ shifts into a memoryless, independent Poisson process. The global boundaries become statistically unobservable because localized transactions represent a negligible draw on the global economic reservoir.
-
-
-For the ratio of standard deviation of occupancy to the expected occupancy...
-
-
-... This establishes the ultimate convergence of ensembles. When the economy is flooded with capital, every distinct wealth level $m$ shifts into a memoryless, independent Poisson process. The global boundaries become statistically unobservable because localized transactions represent a negligible draw on the global economic reservoir.
+Because $M$ sits in the denominator, $P(m) \to 0$ for any specific, fixed wealth level $m$ as $M\to\infty$. The probability space becomes highly diluted across an expansive spectrum of choices.
 
 For the ratio of standard deviation of occupancy to the expected occupancy, the poissonian convergence derived above ($\text{Var}_{\text{micro}}(n_m) \approx \mathbb{E}[n_m]$) allows the relative volatility to simplify directly to:
 
 $$\frac{\sqrt{\text{Var}_{\text{micro}}(n_m)}}{\mathbb{E}[n_m]} \approx \frac{1}{\sqrt{\mathbb{E}[n_m]}} \approx \frac{1}{\sqrt{N \cdot P(m)}}$$
 
-Substituting the asymptotic power-law decay derived for the single-agent allocation, $P(m) \approx \frac{N}{M} e^{-\frac{m(N-2)}{M}}$, yields:
+Substituting the asymptotic power-law decay derived for the single-agent allocation, $P(m) \approx \frac{N}{M} e^{-mN/M}$, yields:
 
-$$\frac{\sqrt{\text{Var}_{\text{micro}}(n_m)}}{\mathbb{E}[n_m]} \approx \sqrt{\frac{M}{N^2}} e^{\frac{m(N-2)}{2M}}$$
+$$\frac{\sqrt{\text{Var}_{\text{micro}}(n_m)}}{\mathbb{E}[n_m]} \approx \sqrt{\frac{M}{N^2}} e^{m\frac{N}{M}}$$
+
+which explodes as the number of available wealth levels grows significantly compared to the square of the population as indicated by the leading square root factor.
 
 ---
 
