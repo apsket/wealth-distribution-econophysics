@@ -70,28 +70,302 @@ While the profile of $P(m)$ across the domain is governed by this geometric fram
 
 In the canonical ensemble, the system is open to wealth fluctuations via contact with a larger reservoir. Because the global wealth constraint is relaxed to an average requirement, the wealth states of individual agents are statistically independent.
 
-Consequently, the occupancy $n_m$ at a specific wealth level $m$ is modeled by a Binomial distribution $n_m \sim \textnormal{Binomial}(N, P(m))$. The expected occupany and intrinsic variance are
+Consequently, the occupancy $n_m$ at a specific wealth level $m$ is modeled by a Binomial distribution $n_m \sim \textnormal{Binomial}(N, P(m))$. The expected occupancy and intrinsic variance are:
 
 $$
 \begin{gather*}
 \mathbb{E}[n_m] = N \cdot P(m) \\
-\textnormal{Var}_{can}(n_m) = N\cdot P(m) \left(1 - P(m)\right)
+\textnormal{Var}_{\textnormal{can}}(n_m) = N\cdot P(m) \left(1 - P(m)\right)
 \end{gather*}
 $$
 
-The variance estimate will prove to be an unaccurate estimate of the variance of in occupations. To see why this is likely to be the case, notice that for small $P(m)$ then $\textnormal{Var}_{can}(n_m) \approx N\cdot P(m) \left(1-0\right) = N\cdot P(m)$, which suggests that the variance is in the order of the average occupation, an extreme prediction. The covariance between different wealth levels is essential for correctly modeling the variance in occupation. The expected value of occupancy $\mathbb{E}[n_m]$ remains a reasonable prediction because the expectation value is linear even for correlated variables, i.e., $\mathbb{E}[n_m] = \mathbb{E}[\sum_{i}n_{i,m}] = \sum_{i} \mathbb{E}[n_{i,m}] = N\cdot P(m)$ where $n_{i,m}$ is the occupancy of agent $i$ at wealth level $m$.
+The variance estimate will prove to be a reasonable estimate of the variance of occupations in regimes where wealth level is small compared to the total wealth.
+
+Notice that for small $P(m)$ then $\textnormal{Var}_{\textnormal{can}}(n_m) \approx N\cdot P(m) \left(1-0\right) = N\cdot P(m) = \mathbb{E}[n_m]$. Standard deviation would then be the square root of the expected occupancy. This implies for the relative variability,
+
+$$
+\frac{\sqrt{\textnormal{Var}_{\textnormal{can}}(n_m)}}{\mathbb{E}[n_m]} = \frac{1}{\sqrt{\mathbb{E}[n_m]}} = \frac{1}{\sqrt{NP(m)}}
+$$
+
+The particular behavior will depend on the stationary distribution. The relative variability is expected to grow with low probabilities.
+
+This view assumes independence between agents, which is not strictly satisfied by the system's wealth conservation.
+
+The covariance between different wealth levels would correctly model the variance in occupation, but regimes when this covariance is negligible will be demonstrated. The expected value of occupancy $\mathbb{E}[n_m]$ remains a reasonable prediction regardless, because the expectation value is linear even for correlated variables, i.e., $\mathbb{E}[n_m] = \mathbb{E}\left[\sum_{i}I_{i,m}\right] = \sum_{i} \mathbb{E}[I_{i,m}] = N\cdot P(m)$ where $n_{i,m}$ is the occupancy of agent $i$ at wealth level $m$.
+
+When $M \gg N$, the canonical prediction $\textnormal{Var}_{\textnormal{can}}(n_m) = \mathbb{E}[n_m]$ makes sense. Agent wealth tends towards independence as the available monetary token pool grows larger. The available wealth levels for an agent grows as well and the probability $P(m)$ of hitting any specific, individual bin $m$ gets diluted to nearly zero ($P(m) \to 0$). In this regime, any specific wealth level becomes a rare event with high variability. This regime marks a transition from discrete into continuous, where wealth levels need to be grouped for occupancies to be stable. The discrete to continuous transition will be covered later.
 
 #### The Microcanonical Ensemble (Conserved Allocations)
 
 In the microcanonical ensemble, the system is strictly closed. Both the total number of agents $N$ and the total wealth $M$ are rigidly fixed constants. This global conservation law breaks pure independence: if one agent shifts into wealth level $m$, it fundamentally restricts the resources available to the remaining agents.
 
-The occupancy at wealth levels for an individual agent under the microcanonical view can be modeled using a multivariate hypergeometric distribution with the available objects $K_m$ for each wealth level $n_m$ mapped to the expected value of the occupation wealth level,
+The correct framework for calculating the variance under rigid constraints requires evaluating the joint probabilities of occupancy within the microcanonical ensemble. Let $I_i(m)$ be an indicator variable such that $I_i(m) = 1$ if agent $i$ possesses exactly $m$ wealth quanta, and $0$ otherwise. The total occupancy is $n_m = \sum_{i=1}^N I_i(m)$. 
+
+To find the variance $\textnormal{Var}_{\textnormal{micro}}(n_m) = \mathbb{E}[n_m^2] - \mathbb{E}[n_m]^2$, we expand the expectation of the squared sum into self-interaction terms and cross-agent correlation terms:
 
 $$
-K_m = N\cdot P(m)
+\mathbb{E}[n_m^2] = \sum_{i=1}^N \mathbb{E}[I_i(m)^2] + \sum_{i \neq j} \mathbb{E}[I_i(m) I_j(m)]
 $$
 
-While this framing introduces non-local couplings and structural covariance penalties due to the simultaneous conservation of population and total wealth, a detailed derivation of the exact microcanonical variance is deferred at this stage. Instead, the current state of the project focuses primarily on the independent allocation framework of the canonical ensemble. An explicit analysis of the microcanonical occupancy variance, including its full finite-size correction terms, will only be addressed if required in future stages for modeling specific market dynamics.
+Since $I_i(m)$ is binary, $I_i(m)^2 = I_i(m)$, which reduces the first sum to $N \cdot P(m)$. The second sum represents the joint probability $P(m, m)$ that two distinct tracked agents simultaneously hold exactly $m$ wealth quanta. Due to the permutation symmetry of the agents, this yields the foundational microcanonical variance relation:
+
+$$\textnormal{Var}_{\textnormal{micro}}(n_m) = N \cdot P(m) + N(N-1)P(m,m) - \left(N \cdot P(m)\right)^2$$
+
+Using the Bose-Einstein "stars and bars" degeneracy formula where the total phase space volume is $\Omega(M, N) = \binom{M+N-1}{M}$, we isolate the required single and joint microstate ratios:
+
+$$
+\begin{gather*}
+P(m) = \frac{\Omega(M-m, N-1)}{\Omega(M, N)} = \frac{\binom{M-m+N-2}{M-m}}{\binom{M+N-1}{M}} \\
+P(m,m) = \frac{\Omega(M-2m, N-2)}{\Omega(M, N)} = \frac{\binom{M-2m+N-3}{M-2m}}{\binom{M+N-1}{M}}
+\end{gather*}
+$$
+
+Note that $P(m,m) = 0$ identically if $2m > M$, strictly enforcing resource conservation. Substituting these exact degeneracies back into the variance expression isolates the full microcanonical fluctuations:
+
+$$
+\textnormal{Var}_{\textnormal{micro}}(n_m) = N \left[ \frac{\binom{M-m+N-2}{M-m}}{\binom{M+N-1}{M}} \right] + N(N-1)\left[ \frac{\binom{M-2m+N-3}{M-2m}}{\binom{M+N-1}{M}} \right] - N^2 \left[ \frac{\binom{M-m+N-2}{M-m}}{\binom{M+N-1}{M}} \right]^2
+$$
+
+Unlike the canonical ensemble where $P(m,m) = P(m)^2$, the microcanonical joint allocation introduces a negative covariance $P(m,m) < P(m)^2$. The finite boundary acts as a stabilizing anchor, compressing the phase space and forcing sub-Poissonian behavior in highly constrained environments.
+
+##### Case 1: The Tight Economy ($m = 0, M = N$)
+
+When the asset pool is severely restricted such that the total number of monetary tokens equals the number of agents ($M=N$), we analyze the structural fluctuations of the broke agents ($m=0$). The total phase space volume reduces to $\Omega(N,N) = \binom{2N-1}{N}$.
+
+The single-agent poverty probability simplifies to:
+$$P(0) = \frac{\binom{2N-2}{N}}{\binom{2N-1}{N}} = \frac{N-1}{2N-1} \approx \frac{1}{2} \quad (\textnormal{for } N \gg 1)$$
+
+The corresponding joint probability for two distinct agents being broke simultaneously is:
+$$
+P(0,0) = \frac{\binom{2N-3}{N}}{\binom{2N-1}{N}} = \frac{(N-1)(N-2)}{(2N-1)(2N-2)} = \frac{N-2}{2(2N-1)}
+$$
+
+Plugging these exact allocations into the master variance equation:
+$$
+\textnormal{Var}_{\textnormal{micro}}(n_0) = N\left(\frac{N-1}{2N-1}\right) + N(N-1)\left(\frac{N-2}{2(2N-1)}\right) - N^2\left(\frac{N-1}{2N-1}\right)^2
+$$
+
+Factoring out the shared terms
+$$
+\textnormal{Var}_{\textnormal{micro}}(n_0) = \frac{N^{2}(N-1)}{2(2N-1)^2}
+$$
+
+Evaluating the asymptotic limit for a large population ($N \gg 1$), the algebraic terms compress tightly to reveal:
+$$\textnormal{Var}_{\textnormal{micro}}(n_0) \approx \frac{N}{8}$$
+
+This exposes the severe limitation of canonical approximations in tight regimes. A canonical approach assuming independence yields $\textnormal{Var}_{\textnormal{can}}(n_0) = N P(0)(1-P(0)) = N\left(\frac{1}{2}\right)\left(\frac{1}{2}\right) = \frac{N}{4}$. By properly enforcing microcanonical constraints, the true occupancy variability is cut exactly in half. The system's global wealth boundary acts as a rigid macroeconomic stabilizer.
+
+For the standard deviation of the ratio of occupancy to $N$,
+$$
+\sqrt{\textnormal{Var}_{\textnormal{micro}}\left(\frac{n_0}{N}\right)} = \frac{\sqrt{\textnormal{Var}_{\textnormal{micro}}(n_0)}}{N} \approx \frac{1}{\sqrt{8N}}
+$$
+
+Matching the intuition that as the economy grows in size, the occupancies converge to their expected value.
+
+In particular as well, using the full expression to find the ratio of standard deviation of occupancy to the expected occupancy is
+$$
+\frac{\sqrt{\textnormal{Var}_{\textnormal{micro}}(n_0)}}{\mathbb{E}[n_0]} \propto \frac{1}{\sqrt{N-1}}
+$$
+
+Variability of occupancy is already a small fraction to the expected occupancy for even small values of $N$ (i.e small economies).
+
+##### Case 2: The Flushed Economy ($m = 0, M \gg N$)
+
+When a massive influx of capital enters the economy ($M \gg N$), the strict scarcity constraints begin to relax. Evaluating the $m=0$ state in this regime reveals how the microcanonical system approaches canonical independence.
+
+Expanding the combinations for a massive token pool $M$ relative to $N$:
+$$P(0) = \frac{N-1}{M+N-1} \approx \frac{N-1}{M}$$
+$$P(0,0) = \frac{(N-1)(N-2)}{(M+N-1)(M+N-2)} \approx \frac{(N-1)(N-2)}{M^2}$$
+
+Substituting these into the variance expression:
+$$\textnormal{Var}_{\textnormal{micro}}(n_0) \approx N \left(\frac{N-1}{M}\right) + N(N-1)\left(\frac{(N-1)(N-2)}{M^2}\right) - N^2 \left(\frac{N-1}{M}\right)^2$$
+
+Because $M$ dominates the denominator, the higher-order $\mathcal{O}(1/M^2)$ terms decay rapidly. Retaining the dominant leading order term isolates the variance as:
+$$\textnormal{Var}_{\textnormal{micro}}(n_0) \approx \frac{N(N-1)}{M}$$
+
+Recalling that the expected occupancy in this regime is $\mathbb{E}[n_0] = N \cdot P(0) \approx \frac{N(N-1)}{M}$, we arrive at a critical reconciliation:
+$$\textnormal{Var}_{\textnormal{micro}}(n_0) \approx \mathbb{E}[n_0] \approx \frac{N^2}{M}$$
+
+The occupancy variance matches its mean, proving that the micro-canonical fluctuations asymptotically converge directly into an independent Poisson distribution, perfectly matching the canonical macro-prediction.
+
+In particular, the ratio of standard deviation of occupancy to the expected occupancy is
+$$
+\frac{\sqrt{\textnormal{Var}_{\textnormal{micro}}(n_0)}}{\mathbb{E}[n_0]} \approx \frac{1}{\sqrt{\mathbb{E}[n_0]}} = \sqrt{\frac{M}{N^{2}}}
+$$
+
+Unlike the tight economy, the variability in occupancy can grow unboundedtly as the number of accesible states grows significantly compared to the number of angents.
+
+Hitting exactly zero tokens becomes an exceptionally rare event distributed uniformly across an immense configuration space.
+
+
+#### General Analysis for Arbitrary Wealth Level $m$
+
+To evaluate the predictive limits of the microcanonical ensemble across all potential asset allocations, we must analyze the structural fluctuations for an arbitrary wealth level $m$. The localized negative correlations dictated by global resource conservation alter the geometry of the variance curve based on whether capital is scarce ($M \approx N$) or abundant ($M \gg N$).
+
+#### Case 3: General Wealth Fluctuations in a Tight Economy ($M = N$)
+
+When the total currency tokens match the population count ($M = N$), the system operates at a rigid baseline economic temperature. To establish the asymptotic behavior of $P(m)$ and $P(m,m)$ for a large population ($N \gg 1$), we use direct polynomial reduction on the factorials.
+
+For the single-agent allocation, the probability $P(m)$ is given by:
+
+$$
+P(m) = \frac{\binom{2N - m - 2}{N - m}}{\binom{2N - 1}{N}} = \frac{(2N-m-2)!}{(N-m)!(N-2)!} \cdot \frac{N!(N-1)!}{(2N-1)!}
+$$
+
+Rearranging terms into product ratios yields
+
+
+$$
+P(m) = \frac{(N-1)}{(2N-1)} \cdot \prod_{k=0}^{m-1} \frac{N-k}{2N-2-k}
+$$
+
+For wealth levels in the bulk of the distribution ($m \ll N$), each fraction in the product safely reduces via leading-order terms to $\frac{N-k}{2N-2-k} \to \frac{1}{2}$, yielding the geometric approximation 
+
+$$
+P(m) \approx \frac{1}{2} \left(\frac{1}{2}\right)^{m} = \left(\frac{1}{2}\right)^{m+1}
+$$
+
+Because the front coefficient $\frac{(N-1)}{(2N-1)} \to \frac{1}{2}$. This proves that the single-agent allocation smoothly tracks a geometric distribution with a success parameter of $1/2$. 
+
+However, this approximation fails near the extreme macro-monopoly tail where $m \to N$. As $k$ approaches $N-1$, the transition fractions drop as $\frac{1}{N} \to 0$, which properly enforces the rapid phase-space collapse as an individual agent exhausts the finite resource pool.
+
+For the joint allocation $P(m,m)$, two distinct agents hoarding exactly $m$ quanta leaves the remaining population to partition $2N-2m$ tokens:
+
+$$
+P(m,m) = \frac{\binom{(N - 2m) + (N -2) - 1}{N - 2m}}{\binom{2N - 1}{N}} = \frac{(2N-2m-3)!}{(N-2m)!(N-3)!} \cdot \frac{N!(N-1)!}{(2N-1)!}
+$$
+
+Extracted as a product ratio relative to the single-agent allocations, polynomial reduction yields:
+
+$$
+P(m,m) = \frac{(N-1)(N-2)}{(2N-1)(2N-2)} \cdot \prod_{k=0}^{2m-1} \frac{N-k}{2N-3-k}
+$$
+
+Where similarly to the individual probability for wealth levels in the bulk of the distribution ($m \ll N$),
+
+$$
+P(m,m) \approx \left(\frac{1}{2}\right)^{2} \left(\frac{1}{2}\right)^{2m} = \left(\frac{1}{2}\right)^{2m+2} = \left(\left(\frac{1}{2}\right)^{m+1}\right)^{2}
+$$
+
+Which implies in this regime the probabilities of two agents having equal wealth are independent $P(m,m) = P(m)^{2}$.
+
+Substituting these reductions into the master microcanonical variance equation $\textnormal{Var}_{\textnormal{micro}}(n_m) = N P(m) + N(N-1)P(m,m) - [N P(m)]^2$ isolates the leading-order behaviors:
+
+$$
+\textnormal{Var}_{\textnormal{micro}}(n_m) \approx N \cdot P(m) + N^{2} P(m)^{2} - [N P(m)]^2 = \mathbb{E}[n_m]
+$$
+
+For the standard deviation of the ratio of occupancy to $N$,
+$$
+\sqrt{\textnormal{Var}_{\textnormal{micro}}\left(\frac{n_m}{N}\right)} = \frac{\sqrt{\textnormal{Var}_{\textnormal{micro}}(n_m)}}{N} \approx \sqrt{\frac{P(m)}{N}}
+$$
+
+Again converging to the probability in the general case of a tight economy.
+
+For the relative variability,
+$$
+\frac{\sqrt{\textnormal{Var}_{\textnormal{micro}}(n_m)}}{\mathbb{E}[n_m]} \approx \frac{1}{\sqrt{NP(m)}}
+$$
+
+Given that $P(m)$ is independent of $N,M$ as the economy grows, this again indicates a decreasing relative variability with respect to economy agents size (or increasing economy wealth as well in this regime $M\approx N$) and increasing with occupancy level.
+
+#### Case 4: General Wealth Fluctuations in a Flushed Economy ($M \gg N$)
+
+When the asset pool dilates indefinitely relative to a fixed population ($M \to \infty$), we track how the conservation constraints dissolve for any arbitrary wealth level $m$. 
+
+We evaluate the single-agent allocation by expanding the combination formulas into polynomials of $M$:
+
+$$
+P(m) = \frac{\binom{M - m + N - 2}{M - m}}{\binom{M + N - 1}{M}} = \frac{(M-m+N-2)!}{(M-m)!(N-2)!} \cdot \frac{M!(N-1)!}{(M+N-1)!}
+$$
+
+Regrouping the factorials isolates a product of falling factorials dominated by $M$:
+
+$$
+P(m) = \frac{N-1}{M+N-2} \prod_{k=0}^{m-1} \frac{M-k}{M+N-2-k}
+$$
+
+To analyze the behavior as M will grow,
+$$
+P(m) = \frac{N-1}{M+N-2} \prod_{k=0}^{m-1} \frac{1}{1+\frac{N-2}{M-k}}
+$$
+
+For fixed $m\ll M$, the probability tends to zero. In the regime $0 \ll N \ll M$ and using the Taylor expansion $1/(1+x) \approx 1-x$ for $x\approx 0$,
+$$
+P(m) \approx \frac{N}{M} \prod_{k=0}^{m-1} \frac{1}{1+\frac{N}{M}} \approx \frac{N}{M} \left( 1-\frac{N}{M} \right)^{m}
+$$
+
+Fixing wealth as relative portion of the total $m = rM$ while letting $M$ grow,
+$$
+P(m) \approx \frac{N}{M} \left( 1-\frac{N}{M} \right)^{rM} \approx \frac{N}{M} e^{-rN} = \frac{N}{M} e^{-m\frac{N}{M}}
+$$
+
+Because $M$ sits in the denominator, $P(m) \to 0$ for any specific, fixed wealth level $m$. The probability space becomes highly diluted across an expansive spectrum of choices.
+
+For the joint probability $P(m,m)$, the combinatorial scaling follows:
+
+$$
+P(m,m) = \frac{\binom{M - 2m + N - 3}{M - 2m}}{\binom{M + N - 1}{M}} \approx \frac{(N-1)(N-2)}{M^2} \left(1 - \frac{2m}{M}\right)^{N-3}
+$$
+
+Comparing the expansions of $P(m)$ and $P(m,m)$ under the condition $M \to \infty$ reveals that the higher-order coupling terms vanish:
+
+$$
+P(m,m) = P(m)^2 \cdot \left[1 + \mathcal{O}\left(\frac{1}{M}\right)\right]
+$$
+
+When the joint probability factorizes perfectly into independent allocations ($P(m,m) \to P(m)^2$), the cross-agent covariances in the master equation cancel out
+
+$$
+\textnormal{Var}_{\textnormal{micro}}(n_m) \to N \cdot P(m)\left(1 - P(m)\right)
+
+$$
+
+Since the immense phase space dilution forces $P(m) \to 0$, the binomial damping term $(1 - P(m))$ goes to unity, yielding:
+
+$$
+\textnormal{Var}_{\textnormal{micro}}(n_m) \approx \mathbb{E}[n_m] \approx \frac{N^2}{M}
+$$
+
+This establishes the ultimate convergence of ensembles. When the economy is flooded with capital, every distinct wealth level $m$ shifts into a memoryless, independent Poisson process. The global boundaries become statistically unobservable because localized transactions represent a negligible draw on the global economic reservoir.
+
+
+For the ratio of standard deviation of occupancy to the expected occupancy...
+
+
+... This establishes the ultimate convergence of ensembles. When the economy is flooded with capital, every distinct wealth level $m$ shifts into a memoryless, independent Poisson process. The global boundaries become statistically unobservable because localized transactions represent a negligible draw on the global economic reservoir.
+
+For the ratio of standard deviation of occupancy to the expected occupancy, the poissonian convergence derived above ($\text{Var}_{\text{micro}}(n_m) \approx \mathbb{E}[n_m]$) allows the relative volatility to simplify directly to:
+
+$$\frac{\sqrt{\text{Var}_{\text{micro}}(n_m)}}{\mathbb{E}[n_m]} \approx \frac{1}{\sqrt{\mathbb{E}[n_m]}} \approx \frac{1}{\sqrt{N \cdot P(m)}}$$
+
+Substituting the asymptotic power-law decay derived for the single-agent allocation, $P(m) \approx \frac{N}{M} e^{-\frac{m(N-2)}{M}}$, yields:
+
+$$\frac{\sqrt{\text{Var}_{\text{micro}}(n_m)}}{\mathbb{E}[n_m]} \approx \sqrt{\frac{M}{N^2}} e^{\frac{m(N-2)}{2M}}$$
+
+---
+
+### Comparative Synthesis of Variance Scaling
+
+By tracking these statistical fluctuations across both boundary regimes, we observe how macroeconomic constraints alter local phase-space topography. The mathematical behaviors of the two ensembles are contrasted below:
+
+| Metric / Regime | Tight Economy ($M = N$) | Flushed Economy ($M \gg N$) |
+| :--- | :--- | :--- |
+| **System Profile** | Highly constrained, scarce liquidity. | Dilated configuration space, abundant capital. |
+| **Dominant Asset Distribution** | Discrete Geometric Profile ($p \approx 1/2$) | Continuous Exponential Decay Regime |
+| **Single-Agent Probability ($P(m)$)** | $\left(\frac{1}{2}\right)^{m+1}$ | $\frac{N}{M} e^{-\frac{m(N-2)}{M}} \to 0$ |
+| **Cross-Agent Covariance** | Vanishing in the bulk of distribution | Vanishingly Small ($\to 0$) |
+| **Microcanonical Variance ($\text{Var}(n_m)$)** | Compressed; $\text{Var}(n_0) \approx \frac{N}{8}$ (half of Canonical) | Poissonian; Matches the Mean ($\approx \mathbb{E}[n_m]$) |
+| **Relative Volatility ($\frac{\sigma}{\mathbb{E}}$)** | Scales as $\sim \frac{1}{\sqrt{N^{3}P(m)}}$ (Tightly bounded) | Scales as $\sim \sqrt{\frac{M}{N^2}} e^{\frac{m(N-2)}{2M}}$ (Explodes at high $M$) |
+
+#### Key Structural Insights
+
+1. **The Role of the Boundary as a Stabilizer:** In the tight economy, the absolute ceiling on resource allocation squashes the variance. Agents cannot freely fluctuate because one agent's gain instantly starves another. This macro-level restriction cuts the variance of the broke-agent bin ($m=0$) exactly in half compared to what standard independent binomial (canonical) assumptions predict.
+   
+2. **Phase Space Dilution:** When $M \gg N$, the number of accessible microstates explodes. Any single, discrete wealth bin $m$ becomes an incredibly rare event. Because transactions draw an insignificant fraction of the total economic reservoir, cross-agent dependencies dissolve. 
+   
+3. **The Divergence of the Tail:** In a flushed economy, the relative volatility grows exponentially as you move out into the wealthy macro-monopoly tail (larger $m$). While the bulk of the population clusters predictably around lower wealth tiers, tracking the exact occupancy of high-wealth bins becomes highly volatile due to the memoryless, unconstrained nature of unanchored local random walks.
+
 
 
 
