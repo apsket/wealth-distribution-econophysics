@@ -113,7 +113,7 @@ class BaseAgentEconomy(ABC):
     def average_wealth(self) -> float:
         return self.total_wealth / self.num_agents
     
-    def _select_pair(self) -> np.ndarray:
+    def _select_pair(self) -> tuple:
         """Helper method to get indices of two unique agents chosen at random."""
         idx_i, idx_j = np.random.randint(0, self.num_agents, size=2)
         while idx_i == idx_j:
@@ -155,6 +155,8 @@ class BaseAgentEconomy(ABC):
                 f"Injected balances violate wealth conservation! "
                 f"Configured total_wealth is {self.total_wealth}, but array sums to {actual_wealth}."
             )
+        
+        return explicit_array
     
     # --- Abstract Validation and Factory Hooks ---
     @abstractmethod
