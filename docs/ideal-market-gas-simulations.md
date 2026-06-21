@@ -58,7 +58,7 @@ To quantify the magnitude of fluctuations in occupancy numbers assumed by the va
 
 For any specific domain point, the allocation of $N$ agents can be conceptualized as a series of trials where an agent either possesses exactly $m$ wealth tokens (Success, with probability $P(m)$) or does not (Failure, with probability $1−P(m)$).
 
-The explicit form of P(m) is determined by the geometric approximation for discrete economies as, which serves as the convergence distribution for the system as liquidity scales (for both the canonical and microcanonical ensemble),
+The explicit form of $P(m)$ is determined by the geometric approximation for discrete economies as, which serves as the convergence distribution for the system as liquidity scales (for both the canonical and microcanonical ensemble),
 
 $$
 P(m) = (1-p)^x p \hspace{15pt} \textnormal{where} \hspace{8pt} p = 1-\left(1+\frac{N}{M}\right)^{-1}
@@ -70,28 +70,129 @@ While the profile of $P(m)$ across the domain is governed by this geometric fram
 
 In the canonical ensemble, the system is open to wealth fluctuations via contact with a larger reservoir. Because the global wealth constraint is relaxed to an average requirement, the wealth states of individual agents are statistically independent.
 
-Consequently, the occupancy $n_m$ at a specific wealth level $m$ is modeled by a Binomial distribution $n_m \sim \textnormal{Binomial}(N, P(m))$. The expected occupany and intrinsic variance are
+Consequently, the occupancy $n_m$ at a specific wealth level $m$ is modeled by a Binomial distribution $n_m \sim \textnormal{Binomial}(N, P(m))$. The expected occupancy and intrinsic variance are:
 
 $$
 \begin{gather*}
 \mathbb{E}[n_m] = N \cdot P(m) \\
-\textnormal{Var}_{can}(n_m) = N\cdot P(m) \left(1 - P(m)\right)
+\textnormal{Var}_{\textnormal{can}}(n_m) = N\cdot P(m) \left(1 - P(m)\right)
 \end{gather*}
 $$
 
-The variance estimate will prove to be an unaccurate estimate of the variance of in occupations. To see why this is likely to be the case, notice that for small $P(m)$ then $\textnormal{Var}_{can}(n_m) \approx N\cdot P(m) \left(1-0\right) = N\cdot P(m)$, which suggests that the variance is in the order of the average occupation, an extreme prediction. The covariance between different wealth levels is essential for correctly modeling the variance in occupation. The expected value of occupancy $\mathbb{E}[n_m]$ remains a reasonable prediction because the expectation value is linear even for correlated variables, i.e., $\mathbb{E}[n_m] = \mathbb{E}[\sum_{i}n_{i,m}] = \sum_{i} \mathbb{E}[n_{i,m}] = N\cdot P(m)$ where $n_{i,m}$ is the occupancy of agent $i$ at wealth level $m$.
+The variance estimate will prove to be a reasonable estimate of the variance of occupations in regimes where wealth level is small compared to the total wealth.
 
-#### The Microcanonical Ensemble (Conserved Allocations)
-
-In the microcanonical ensemble, the system is strictly closed. Both the total number of agents $N$ and the total wealth $M$ are rigidly fixed constants. This global conservation law breaks pure independence: if one agent shifts into wealth level $m$, it fundamentally restricts the resources available to the remaining agents.
-
-The occupancy at wealth levels for an individual agent under the microcanonical view can be modeled using a multivariate hypergeometric distribution with the available objects $K_m$ for each wealth level $n_m$ mapped to the expected value of the occupation wealth level,
+Notice that for small $P(m)$ then $\textnormal{Var}_{\textnormal{can}}(n_m) \approx N\cdot P(m) \left(1-0\right) = N\cdot P(m) = \mathbb{E}[n_m]$. Standard deviation would then be the square root of the expected occupancy. This implies for the relative variability,
 
 $$
-K_m = N\cdot P(m)
+\frac{\sqrt{\textnormal{Var}_{\textnormal{can}}(n_m)}}{\mathbb{E}[n_m]} = \frac{1}{\sqrt{\mathbb{E}[n_m]}} = \frac{1}{\sqrt{NP(m)}}
 $$
 
-While this framing introduces non-local couplings and structural covariance penalties due to the simultaneous conservation of population and total wealth, a detailed derivation of the exact microcanonical variance is deferred at this stage. Instead, the current state of the project focuses primarily on the independent allocation framework of the canonical ensemble. An explicit analysis of the microcanonical occupancy variance, including its full finite-size correction terms, will only be addressed if required in future stages for modeling specific market dynamics.
+The particular behavior will depend on the stationary distribution. The relative variability is expected to grow with low probabilities.
+
+This view assumes independence between agents, which is not strictly satisfied by the system's wealth conservation. However, the assumption will provide reasonable estimations at low wealth levels. The expected value of occupancy $\mathbb{E}[n_m]$ remains a reasonable prediction regardless, because the expectation value is linear even for correlated variables, i.e., $\mathbb{E}[n_m] = \mathbb{E}\left[\sum_{i}I_{i,m}\right] = \sum_{i} \mathbb{E}[I_{i,m}] = N\cdot P(m)$ where $n_{i,m}$ is the occupancy of agent $i$ at wealth level $m$.
+
+When $M \gg N$, the canonical prediction $\textnormal{Var}_{\textnormal{can}}(n_m) = \mathbb{E}[n_m]$ makes sense. Agent wealth tends towards independence as the available monetary token pool grows larger. The available wealth levels for an agent grows as well and the probability $P(m)$ of hitting any specific, individual bin $m$ gets diluted to nearly zero ($P(m) \to 0$). In this regime, any specific wealth level becomes a rare event with high variability. This regime marks a transition from discrete into continuous, where wealth levels need to be grouped for occupancies to be stable. The discrete to continuous transition will be covered later.
+
+
+#### General Analysis for Arbitrary Wealth Level $m$
+
+To evaluate the predictive limits of the microcanonical ensemble across all potential asset allocations, we must analyze the structural fluctuations for an arbitrary wealth level $m$. The localized negative correlations dictated by global resource conservation alter the geometry of the variance curve based on whether capital is scarce ($M \approx N$) or abundant ($M \gg N$).
+
+#### Case 1: General Wealth Fluctuations in a Tight Economy ($M = N$)
+
+When the total currency tokens match the population count ($M = N$), the system operates at a rigid baseline economic temperature. To establish the asymptotic behavior of $P(m)$ and $P(m,m)$ for a large population ($N \gg 1$), we use direct polynomial reduction on the factorials.
+
+For the single-agent allocation, the probability $P(m)$ is given by:
+
+$$
+P(m) = \frac{\binom{2N - m - 2}{N - m}}{\binom{2N - 1}{N}} = \frac{(2N-m-2)!}{(N-m)!(N-2)!} \cdot \frac{N!(N-1)!}{(2N-1)!}
+$$
+
+Rearranging terms into product ratios yields
+
+
+$$
+P(m) = \frac{(N-1)}{(2N-1)} \cdot \prod_{k=0}^{m-1} \frac{N-k}{2N-2-k}
+$$
+
+For wealth levels in the bulk of the distribution ($m \ll N$), each fraction in the product safely reduces via leading-order terms to $\frac{N-k}{2N-2-k} \to \frac{1}{2}$, yielding the geometric approximation 
+
+$$
+P(m) \approx \frac{1}{2} \left(\frac{1}{2}\right)^{m} = \left(\frac{1}{2}\right)^{m+1}
+$$
+
+Because the front coefficient $\frac{(N-1)}{(2N-1)} \to \frac{1}{2}$. This proves that the single-agent allocation smoothly tracks a geometric distribution with a success parameter of $1/2$. 
+
+However, this approximation fails near the extreme macro-monopoly tail where $m \to N$. As $k$ approaches $N-1$, the transition fractions drop as $\frac{1}{N} \to 0$, which properly enforces the rapid phase-space collapse as an individual agent exhausts the finite resource pool.
+
+For the relative variability under independence,
+$$
+\frac{\sqrt{\textnormal{Var}_{\textnormal{micro}}(n_m)}}{\mathbb{E}[n_m]} = \frac{1}{\sqrt{NP(m)}}
+$$
+
+Given that $P(m)$ in the tight economy is independent of $N,M$ as the economy grows, relative variability at a fixed wealth level decreases with respect to economy agents size (or increasing economy wealth as well in this regime) and increases with occupancy level for fixed economy size.
+
+#### Case 2: General Wealth Fluctuations in a Flushed Economy ($M \gg N$)
+
+When the asset pool dilates indefinitely relative to a fixed population ($M \to \infty$), we track how the conservation constraints dissolve for any arbitrary wealth level $m$. 
+
+We evaluate the single-agent allocation by expanding the combination formulas into polynomials of $M$:
+
+$$
+P(m) = \frac{\binom{M - m + N - 2}{M - m}}{\binom{M + N - 1}{M}} = \frac{(M-m+N-2)!}{(M-m)!(N-2)!} \cdot \frac{M!(N-1)!}{(M+N-1)!}
+$$
+
+Regrouping the factorials isolates a product of falling factorials dominated by $M$:
+
+$$
+P(m) = \frac{N-1}{M+N-2} \prod_{k=0}^{m-1} \frac{M-k}{M+N-2-k}
+$$
+
+To analyze the behavior as M will grow,
+$$
+P(m) = \frac{N-1}{M+N-2} \prod_{k=0}^{m-1} \frac{1}{1+\frac{N-2}{M-k}}
+$$
+
+For fixed $m\ll M$, the probability tends to zero. In the regime $0 \ll N \ll M$ and using the Taylor expansion $1/(1+x) \approx 1-x$ for $x\approx 0$,
+$$
+P(m) \approx \frac{N}{M} \prod_{k=0}^{m-1} \frac{1}{1+\frac{N}{M}} \approx \frac{N}{M} \left( 1-\frac{N}{M} \right)^{m}
+$$
+
+Describing a wealth level as a relative portion of the total $m = rM$ while letting $M$ grow,
+$$
+P(m) \approx \frac{N}{M} \left( 1-\frac{N}{M} \right)^{rM} \approx \frac{N}{M} e^{-rN} = \frac{N}{M} e^{-m\frac{N}{M}}
+$$
+
+Because $M$ sits in the denominator, $P(m) \to 0$ for any specific, fixed wealth level $m$ as $M\to\infty$. The probability space becomes highly diluted across an expansive spectrum of choices.
+
+For the relative variability in occupation after substituting the asymptotic power-law decay derived for the single-agent allocation, yields:
+
+$$\frac{\sqrt{\text{Var}_{\text{micro}}(n_m)}}{\mathbb{E}[n_m]} \approx \sqrt{\frac{M}{N^2}} e^{m\frac{N}{M}}$$
+
+which explodes as the number of available wealth levels grows significantly compared to the square of the population as indicated by the leading square root factor.
+
+---
+
+### Comparative Synthesis of Variance Scaling
+
+By tracking these statistical fluctuations across both boundary regimes, we observe how macroeconomic constraints alter local phase-space topography. The mathematical behaviors of the two ensembles are contrasted below:
+
+| Metric / Regime | Tight Economy ($M = N$) | Flushed Economy ($M \gg N$) |
+| :--- | :--- | :--- |
+| **System Profile** | Highly constrained, scarce liquidity. | Dilated configuration space, abundant capital. |
+| **Dominant Asset Distribution** | Discrete Geometric Profile ($p \approx 1/2$) | Continuous Exponential Decay Regime |
+| **Single-Agent Probability ($P(m)$)** | $\left(\frac{1}{2}\right)^{m+1}$ | $\frac{N}{M} e^{-\frac{m(N-2)}{M}} \to 0$ |
+| **Cross-Agent Covariance** | Vanishing in the bulk of distribution | Vanishingly Small ($\to 0$) |
+| **Relative Volatility ($\frac{\sigma}{\mathbb{E}}$)** | Scales as $\sim \frac{1}{\sqrt{N(1/2)^{m1}}}$ (Tightly bounded) | Scales as $\sim \sqrt{\frac{M}{N^2}} e^{\frac{m(N-2)}{2M}}$ (Explodes at high $M$) |
+
+#### Key Structural Insights
+
+1. **The Role of the Boundary as a Stabilizer:** In the tight economy, the absolute ceiling on resource allocation squashes the variance. Agents cannot freely fluctuate because one agent's gain instantly starves another. This macro-level restriction cuts the variance of the broke-agent bin ($m=0$) exactly in half compared to what standard independent binomial (canonical) assumptions predict.
+   
+2. **Phase Space Dilution:** When $M \gg N$, the number of accessible microstates explodes. Any single, discrete wealth bin $m$ becomes an incredibly rare event. Because transactions draw an insignificant fraction of the total economic reservoir, cross-agent dependencies dissolve. 
+   
+3. **The Divergence of the Tail:** In a flushed economy, the relative volatility grows exponentially as you move out into the wealthy macro-monopoly tail (larger $m$). While the bulk of the population clusters predictably around lower wealth tiers, tracking the exact occupancy of high-wealth bins becomes highly volatile due to the memoryless, unconstrained nature of unanchored local random walks.
+
 
 
 

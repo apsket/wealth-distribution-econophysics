@@ -198,7 +198,7 @@ The continuous heat-bath assumption overestimates the probability of complete de
 
 ### The Non-Policy Origin of Inequality
 
-This framework establishes that market inequality is not solely the byproduct of historical, political, or institutional extractions. In a closed, zero-intelligence economy governed by random, conservative trading rules, the system naturally relaxes toward its maximum entropy state: the geometric/exponential distribution. Even when a simulation is initialized with perfect absolute equality ($m=M/N$), the sheer volume of accessible microscopic configurations dictates that the most probable wealth state for an individual agent is always zero. Inequality is an entropic necessity of closed conservation laws.
+This framework establishes that market inequality is not solely the byproduct of historical, political, or institutional extractions. In a closed, zero-intelligence economy governed by random, conservative trading rules, the system naturally relaxes toward its maximum entropy state: the geometric/exponential distribution. Even when a simulation is initialized with perfect absolute equality ($m=M/N$), the sheer volume of accessible microscopic configurations dictates that the most probable wealth state for an individual agent is always zero. The model predicts unequal wealth distributions under specific assumptions.
 
 ### Redefining Economic Temperature
 

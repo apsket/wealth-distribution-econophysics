@@ -48,7 +48,7 @@ class MarketExperiment:
         self._theoretical_models[label] = model_func
         return self
 
-    def execute(self) -> Tuple[np.ndarray, Dict[str, np.ndarray], Dict[str, np.ndarray]]:
+    def execute(self) -> Tuple[np.ndarray, list, list, Dict[str, np.ndarray]]:
         """Runs the concrete simulation setup and evaluates the registered math models."""
         logger.info(f"Launching {self.economy.__class__.__name__}")
         logger.info(f"Processing timeline for {self.num_transactions:,} steps...")
