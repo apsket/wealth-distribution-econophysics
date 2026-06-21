@@ -4,7 +4,7 @@ from typing import Dict, Optional, Tuple, Union
 
 
 def plot_wealth_distribution(
-    final_wealths: np.ndarray,
+    final_wealths: Union[np.ndarray, None] = None,
     occupancies: Optional[np.ndarray] = None,
     centers: Optional[np.ndarray] = None,
     theory_dict: Optional[Dict[str, np.ndarray]] = None,
